@@ -12,7 +12,7 @@ function App() {
       .get("http://localhost:5000/api/values")
       .then((response) => setValues(response.data));
   }, []);
-  console.log(values);
+
   return (
     <div>
       <Header as="h2">
