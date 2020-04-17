@@ -19,16 +19,37 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Activity>>> GetList()
+        public async Task<ActionResult<List<Activity>>> List()
         {
             return await _mediator.Send(new ActivityList.Query());
         }
 
         [HttpGet("{id}")]
 
-        public async Task<ActionResult<Activity>> GetDetail(Guid id)
+        public async Task<ActionResult<Activity>> Detail(Guid id)
         {
             return await _mediator.Send(new ActivityDetail.Query { Id = id });
+        }
+
+        [HttpPost]
+
+        public async Task<ActionResult<Unit>> Create(ActivityCreate.Command command)
+        {
+            return await _mediator.Send(command);
+        }
+
+        [HttpPut("{id}")]
+
+        public async Task<ActionResult<Unit>> Update(Guid id, ActivityUpdate.Command command)
+        {
+            command.Id = id;
+            return await _mediator.Send(command);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<Unit>> Delete(Guid id)
+        {
+            return await _mediator.Send(new ActivityDelete.Command { Id = id });
         }
     }
 }
